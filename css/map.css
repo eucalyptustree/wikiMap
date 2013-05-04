@@ -1,0 +1,99 @@
+/* from /yuki/ */
+
+body {
+    font-family: helvetica;
+    font-size: 14px;
+    font-weight: bold;
+    color: #DDD;
+    background-color: #444;
+}
+
+table {
+    border-spacing: 0;
+}
+
+#loadingText{
+    fill: #39f;
+    font-size: 40px;
+    font-weight: bold;
+    text-shadow:
+    -1px -1px 0 #000,  
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+
+
+svg { 
+    background-color: #000;
+    border: solid 1px #eee;
+    width: 600px;
+    height: 500px;
+}
+
+.states {
+    border: solid 1px #ccc;
+    fill: #000 /*#eef; */
+    stroke: #eee;
+}
+
+path {
+    fill: #000;
+    stroke: #eee;
+}
+
+#languageSelector {
+    position:inline-block;
+    padding-left:0px;
+    width:150px;
+    height:475px;
+    overflow:auto;
+}
+
+a {
+  color: #284B77;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #324B99;
+  text-decoration: underline;
+}
+
+h1{
+/* text-align: center; */
+padding-left:146px;
+}
+  
+
+#mapSpacer{position:relative;width:600px; height:25px; visibility:visible;} 
+#mapSpacerHeading{padding:0px; margin:0px;}
+
+
+
+#languageTable{
+border:0px;
+width:600px;
+table-layout:fixed;
+}
+
+.languageCol{
+width:150px;
+}
+
+
+    
+g{
+height:500px;
+width:600px;
+position:relative;
+left:0px;
+top:0px;
+z-index:-41;
+}
+.selectors{
+top:0px;
+left:600px;
+position:relative;
+z-index:100;
+}

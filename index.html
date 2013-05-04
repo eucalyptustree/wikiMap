@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">     
+        <script type="text/javascript" src="./js/d3.v3.min.js"></script>
+        <script type="text/javascript" src='./js/jquery-2.0.0.min.js'></script>
+        <script src="./js/jquery-ui.js"></script>
+        <script type="text/javascript" src="./js/intro.js"></script>
+        <script type='text/javascript' src="./js/wikiMap.js"></script>  
+        <script type='text/javascript' src="./js/streamgraph.js"></script>
+        <link rel="stylesheet" type="text/css" href="./css/map.css" media="screen" />
+        <link rel='stylesheet' type='text/css' href='./css/introjs.css'/>
+        <link rel='stylesheet' type='text/css' href='./css/streamgraph.css'/>
+        <link rel="stylesheet" href="./css/jquery-ui.css" /> 
+        <title>Wikipedia Edits Around the Globe</title>
+        <style type="text/css"> td { margin: 0px 0px; } </style>
+
+        <script type="text/javascript">streamgraphLoad();</script>
+    </head>
+    <body>
+
+        <h1 class='text' data-step=1 data-intro="Hello! Welcome to the Wikipedia Around the Globe visualization. This site will allow you to explore where the people who edit the 20 largest Wikipedias are located, and when they are most active. Click Next to learn how to use this visualization, or Skip to end this tutorial.">Wikipedia Edits Around the Globe: The Where and When of Language</h1>
+        <table data-step=2 data-intro="First, we'll show you around the two display panes: the Map on the left and the Streamgraph on the right. Most of the magic happens here, so after you've learned the controls you'll mostly be looking here.">
+        <tr>
+            <td id="maptd">
+                <div id='map' data-step=3 data-intro="The map displays where editors are located. Brighter dots indicate that more edits originate from that location, while fainter dots indicate fewer edits."></div>
+                
+                <div id='mapSpacer'><h3 class='text' id='mapSpacerHeading'>Select Languages</h3></div>
+            </td>
+            <td width='10px'></td>
+            <td>
+                <div id="containment-wrapper">
+                    <div id="draggable1" class="draggable ui-widget-content" data-step=6 data-intro="Next, use these sliders to select what hours to display. The hours are in 24-hour time, UTC. Drag the red slider to pick a start time."></div>
+                    <div id="draggable2" class="draggable ui-widget-content" data-step=7 data-intro="Drag the blue slider to select the end time. The map displays editors that are active between the start and end time."></div>
+
+                    <div id="top-wrapper"></div>
+                </div>
+                <div class="chart" data-step=4 data-intro="The streamgraph displays the volume of edits over time, and also allows you to select what times to display on the map."> </div>
+                <div id="x-axis"></div>
+            </td>
+        </tr>
+        </table>
+                   
+                    <table id="languageTable" >
+                    <tr>
+                        <td class="languageCol" data-step=5 data-intro="To start using the visualization, use the checkboxes to select the languages you'd like to display. We've gone ahead and turned on English for you.">
+                        <div>
+                            <input type="checkbox" class="language" id = "enToggle" name="en" value="en" checked onchange="updateMap()"><span style="color:#1f77b4">English</span><br>
+                            <input type="checkbox" class="language" id = "deToggle" name="de" value="de" onchange="updateMap()"><span style="color:#aec7e8">German</span><br>
+                            <input type="checkbox" class="language" id = "frToggle" name="fr" value="fr" onchange="updateMap()"><span style="color:#ff7f0e">French</span><br>
+                            <input type="checkbox" class="language" id = "nlToggle" name="nl" value="nl" onchange="updateMap()"><span style="color:#ffbb78">Dutch</span><br>
+                            <input type="checkbox" class="language" id = "itToggle" name="it" value="it" onchange="updateMap()"><span style="color:#2ca02c">Italian</span><br>
+                        </div>
+                        </td>
+                        <td class="languageCol">
+                        <div>
+                            <input type="checkbox" class="language" id = "ruToggle" name="ru" value="ru" onchange="updateMap()"><span style="color:#98df8a">Russian</span><br>
+                            <input type="checkbox" class="language" id = "esToggle" name="es" value="es" onchange="updateMap()"><span style="color:#d62728">Spanish</span><br>
+                            <input type="checkbox" class="language" id = "plToggle" name="pl" value="pl" onchange="updateMap()"><span style="color:#ff9896">Polish</span><br>
+                            <input type="checkbox" class="language" id = "svToggle" name="sv" value="sv" onchange="updateMap()"><span style="color:#9467bd">Swedish</span><br>
+                            <input type="checkbox" class="language" id = "jaToggle" name="ja" value="ja" onchange="updateMap()"><span style="color:#c5b0d5">Japanese</span><br>
+                        </div>
+                        </td>
+                        
+                        <td class="languageCol">
+                            <input type="checkbox" class="language" id = "ptToggle" name="pt" value="pt" onchange="updateMap()"><span style="color:#8c564b">Portuguese</span><br>
+                            <input type="checkbox" class="language" id = "zhToggle" name="zh" value="zh" onchange="updateMap()"><span style="color:#c49c94">Chinese</span><br>
+                            <input type="checkbox" class="language" id = "viToggle" name="vi" value="vi" onchange="updateMap()"><span style="color:#e377c2">Vietnamese</span><br>
+                            <input type="checkbox" class="language" id = "ukToggle" name="uk" value="uk" onchange="updateMap()"><span style="color:#f7b6d2">Ukranian</span><br>
+                            <input type="checkbox" class="language" id = "caToggle" name="ca" value="ca" onchange="updateMap()"><span style="color:#7f7f7f">Catalan</span><br>
+                        </td>
+                        <td class="languageCol">
+                            <input type="checkbox" class="language" id = "noToggle" name="no" value="no" onchange="updateMap()"><span style="color:#c7c7c7">Norwegian</span><br>
+                            <input type="checkbox" class="language" id = "cebToggle" name="ceb" value="ceb" onchange="updateMap()"><span style="color:#bcbd22">Cebuano</span><br>
+                            <input type="checkbox" class="language" id = "fiToggle" name="fi" value="fi" onchange="updateMap()"><span style="color:#dbdb8d">Finnish</span><br>
+                            <input type="checkbox" class="language" id = "warToggle" name="war" value="war" onchange="updateMap()"><span style="color:#17becf">Waray-Waray</span><br>
+                            <input type="checkbox" class="language" id = "csToggle" name="cs" value="cs" onchange="updateMap()"><span style="color:#9edae5">Czech</span><br>
+                        </td>
+
+                        <td id='presetBox' colspan='4'> <div class='presetText'>Data Visualization Created for CS171 <br> by Ryan Mitchell and Yuki Yamada</div> </td>
+                    </tr>
+                    <tr>
+                        <td>
+
+                        </td>
+                        <td><button id="tutorialButton" onClick=introJs().start() data-step=9 data-intro="That's it! If you need a refresher, click the Tutorial button to restart the guide. But for now, load up the presets and explore Wikipedia Around the Globe!">Tutorial</button> </td>
+                        <td id="prevCont"><button id="prevButton">Previous Preset</button> </td>
+                        <td id="nextCont"><button id='nextButton' data-step=8 data-intro="We've prepared some preset selections to get you started exploring the data; hit Next Preset to load the first one." >Next Preset</button> </td>
+                    </tr>                    
+                    </table>  
+                <h2><a href="Yamada-Mitchell-P3-Process-Book.pdf" target="_blank" style="color:#fff;text-decoration:underline;cursor:pointer;">Our Process Book</a></h2>
+                <h2>Our Screencast:</h2>
+                <iframe width="560" height="315" src="http://www.youtube.com/embed/ZP8IR145sAk" frameborder="0" allowfullscreen></iframe>
+
+    <script type='text/javascript'> mapInit(); </script>
+    <script type="text/javascript">streamgraphBody();</script>
+    <script type='text/javascript' src="./js/walkthrough.js"></script>
+    </body>
+</html>
